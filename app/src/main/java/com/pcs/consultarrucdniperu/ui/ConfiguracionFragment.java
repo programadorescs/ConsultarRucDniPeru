@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pcs.consultarrucdniperu.R;
+import com.pcs.consultarrucdniperu.snippets.Utilidad;
 
 public class ConfiguracionFragment extends Fragment {
 
@@ -44,6 +45,11 @@ public class ConfiguracionFragment extends Fragment {
         fabGrabar = view.findViewById(R.id.fab_grabar);
 
         fabGrabar.setOnClickListener(view1 -> {
+            if(!Utilidad.existeConexionInternet(view.getContext())) {
+                Toast.makeText(getContext(), "NO existe acceso a Internet", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             editor = getActivity().getSharedPreferences(TOKEN_APIS, Context.MODE_PRIVATE).edit();
             editor.putString("token_dev", txtTokenApiPeruDev.getText().toString());
             editor.putString("token_apisperu", txtTokenApisPeru.getText().toString());

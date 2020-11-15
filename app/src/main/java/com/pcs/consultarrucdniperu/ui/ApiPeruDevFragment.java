@@ -54,6 +54,11 @@ public class ApiPeruDevFragment extends Fragment implements GetHttpApiPeruDev.IA
         fabBuscar = view.findViewById(R.id.fab_buscar);
 
         fabBuscar.setOnClickListener(view1 -> {
+            if(!Utilidad.existeConexionInternet(view.getContext())) {
+                Toast.makeText(getContext(), "NO existe acceso a Internet", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             String nroDoc = txtDniRuc.getText().toString().trim();
             Utilidad.OcultarTeclado(view1.getContext(), view1);
             Utilidad.LimpiarEditText(getView());

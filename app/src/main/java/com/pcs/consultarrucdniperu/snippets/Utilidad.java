@@ -2,6 +2,8 @@ package com.pcs.consultarrucdniperu.snippets;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -32,5 +34,11 @@ public class Utilidad {
                 .setPositiveButton("Aceptar",
                         (dialog, id) -> dialog.cancel());
         builder.create().show();
+    }
+
+    public static boolean existeConexionInternet(Context contexto) {
+        ConnectivityManager cm = (ConnectivityManager)contexto.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }
